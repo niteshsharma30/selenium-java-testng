@@ -149,7 +149,7 @@ public class magicLeap {
 
                     hub = "https://" + username + ":" + accesskey + "@" + gridURL + "/wd/hub";
                     System.out.println(hub);
-
+                    System.setOut(new PrintStream(new FileOutputStream("Output.txt")));
                     driver = new RemoteWebDriver(new URL(hub), capabilities);
                     session = driver.getSessionId();
                     System.out.println("========================================================" + session + "========================================================");
