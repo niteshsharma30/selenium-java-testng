@@ -253,7 +253,7 @@
             <class name="magicleapTesting.magicLeap"/>
         </classes>
     </test>
-    <!--
+    
 
         <test name="2">
             <parameter name="browser" value="firefox"/>
