@@ -156,10 +156,10 @@ public class magicLeap {
 
                     hub = "https://" + username + ":" + accesskey + "@" + gridURL + "/wd/hub";
                     System.out.println("Getting Hub" + hub);
-                    session = driver.getSessionId();
-                    System.out.println("Getting Session at line No. 160");
-                    System.setOut(new PrintStream(new FileOutputStream("Session_"+driver.getSessionId()+"_Output.txt")));
+                    
                     driver = new RemoteWebDriver(new URL(hub), capabilities);
+                    System.out.println("Getting Session at line No. 161");
+                    System.setOut(new PrintStream(new FileOutputStream("Session_"+driver.getSessionId()+"_Output.txt")));
                     session = driver.getSessionId();
                     System.out.println("========================================================" + session + "========================================================");
 
