@@ -156,7 +156,7 @@ public class magicLeap {
 
                     hub = "https://" + username + ":" + accesskey + "@" + gridURL + "/wd/hub";
                     System.out.println(hub);
-                    System.setOut(new PrintStream(new FileOutputStream("Output.txt")));
+                    System.setOut(new PrintStream(new FileOutputStream("Session_"+driver.getSessionId()+"_Output.txt")));
                     driver = new RemoteWebDriver(new URL(hub), capabilities);
                     session = driver.getSessionId();
                     System.out.println("========================================================" + session + "========================================================");
@@ -183,7 +183,7 @@ public class magicLeap {
 
     }
 
-    @Test
+    @Test(priority = 1)
     public void DesktopScript() {
         try {
             SuiteStart = System.currentTimeMillis();
@@ -207,7 +207,30 @@ public class magicLeap {
         }
     }
 
+ @Test(priority = 2)
+    public void uploadFile() {           
+        //uploading the logs to the terminal logs tab on lambdatest
 
+            File testUploadFile = new File(./+"Session_"+driver.getSessionId()+"_Output.txt"); //Specify your own location and file
+
+            RestAssured.baseURI = "https://api.lambdatest.com/automation/api/v1/sessions/"+driver.getSessionId()+"/terminal-logs";
+
+            String getName="Session_"+driver.getSessionId()+"_Output.txt";
+            String compareName=getName.substring(8,40);
+
+            if(getName==compareName) {
+                Response response = given().auth().basic(username, accesskey)
+                        .multiPart(testUploadFile)
+                        .when().post();
+                System.out.println(response.getStatusCode());
+                System.out.println(response.asString());
+            }
+            else{
+                System.out.println("Session ID not matched");
+            }
+
+
+        }
     @AfterTest
     @org.testng.annotations.Parameters(value = {"browser", "version", "platform"})
     public void tearDown() throws Exception {
